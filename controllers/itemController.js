@@ -12,7 +12,7 @@ exports.postNew = (req, res, next) => {
 exports.getList = (req, res, next) => {
   res.send("Find render list of items");
 };
-exports.getitem = (req, res, next) => {
+exports.getItem = (req, res, next) => {
   res.send("Find by id, display info");
 };
 
