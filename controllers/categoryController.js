@@ -12,7 +12,7 @@ exports.postNew = (req, res, next) => {
 exports.getList = (req, res, next) => {
   res.send("Display List of links to category pages");
 };
-exports.getItem = (req, res, next) => {
+exports.getCategory = (req, res, next) => {
   res.send("Find by id, display info");
 };
 
