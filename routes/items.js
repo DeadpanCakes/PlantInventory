@@ -19,4 +19,4 @@ router.post("/update/:id", itemController.postUpdate);
 router.get("/delete/:id", itemController.getDelete);
 router.post("/delete/:id", itemController.postDelete);
 
-module.exports;
+module.exports = router;
