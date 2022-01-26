@@ -1,41 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
-//Create
-router.get("/new", (req, res, next) => {
-  res.send("Form For Creating Categories");
-});
+const categoryController = require("../controllers/categoryController");
 
-router.post("/new", (req, res, next) => {
-  res.send("Make a new category, push to server, redirect to that page");
-});
+//Create
+router.get("/new", categoryController.getNew);
+
+router.post("/new", categoryController.postNew);
 
 //Read
-router.get("/", (req, res, next) => {
-  res.send("Display a list of all items");
-});
-router.get("/:id", (req, res, next) => {
-  res.send("Find by id, display info of item");
-});
+router.get("/", categoryController.getList);
+router.get("/:id", categoryController.getCategory);
 
 //Update
-router.get("/update/:id", (req, res, next) => {
-  res.send(
-    "find by id, display same form as for new categories, but prepopulate fields"
-  );
-});
-router.post("/update/:id", (req, res, next) => {
-  res.send("Find and update by id, redirect to page");
-});
+router.get("/update/:id", categoryController.getUpdate);
+router.post("/update/:id", categoryController.postUpdate);
 
 //Delete
-router.get("/delete/:id", (req, res, next) => {
-  res.send("display simple yes/no form for confirming delete, display info");
-});
-router.post("/delete/:id", (req, res, next) => {
-  res.send(
-    "display brief confirmation that the delete has gone through before redirecting to list of categories"
-  );
-});
+router.get("/delete/:id", categoryController.getDelete);
+router.post("/delete/:id", categoryController.postDelete);
 
 module.exports;
