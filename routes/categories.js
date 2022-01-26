@@ -20,4 +20,4 @@ router.post("/update/:id", categoryController.postUpdate);
 router.get("/delete/:id", categoryController.getDelete);
 router.post("/delete/:id", categoryController.postDelete);
 
-module.exports;
+module.exports = router;
