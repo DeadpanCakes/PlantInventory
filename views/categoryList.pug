@@ -1,0 +1,10 @@
+extends layout 
+
+block content
+    h1 Categories
+        ul
+            for category in categories
+                li
+                    a(href=category.url)=category.name
+            else
+                p No Categories
