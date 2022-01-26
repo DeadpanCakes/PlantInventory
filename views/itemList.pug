@@ -1,0 +1,10 @@
+extends layout 
+
+block content
+    h1 Items
+        ul
+            for item in items
+                li
+                    a(href=item.url)=item.name
+            else
+                p No items
