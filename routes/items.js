@@ -1,41 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-//Create
-router.get("/new", (req, res, next) => {
-  res.send("Form For Creating items");
-});
+const itemController = require("../controllers/itemController");
 
-router.post("/new", (req, res, next) => {
-  res.send("Make a new item, push to server, redirect to that page");
-});
+//Create
+router.get("/new", itemController.getNew);
+router.post("/new", itemController.postNew);
 
 //Read
-router.get("/", (req, res, next) => {
-  res.send("Display a list of all items");
-});
-router.get("/:id", (req, res, next) => {
-  res.send("Find by id, display info of item");
-});
+router.get("/", itemController.getList);
+router.get("/:id", itemController.getItem);
 
 //Update
-router.get("/update/:id", (req, res, next) => {
-  res.send(
-    "find by id, display same form as for new items, but prepopulate fields"
-  );
-});
-router.post("/update/:id", (req, res, next) => {
-  res.send("Find and update by id, redirect to page");
-});
+router.get("/update/:id", itemController.getUpdate);
+router.post("/update/:id", itemController.postUpdate);
 
 //Delete
-router.get("/delete/:id", (req, res, next) => {
-  res.send("display simple yes/no form for confirming delete, display info");
-});
-router.post("/delete/:id", (req, res, next) => {
-  res.send(
-    "display brief confirmation that the delete has gone through before redirecting to list of items"
-  );
-});
+router.get("/delete/:id", itemController.getDelete);
+router.post("/delete/:id", itemController.postDelete);
 
 module.exports;
