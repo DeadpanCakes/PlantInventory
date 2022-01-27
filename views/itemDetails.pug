@@ -1,0 +1,15 @@
+extends layout 
+
+block content
+    div.itemHeader
+        h1= item.name
+        p= `id: ${item._id}`
+    div.itemContents
+        img(src="")
+        p= item.desc
+        p= item.stock
+        p= item.price
+        ul.categoryContainer
+            for category in categories
+                li
+                    a(href= category.url)= category.name
