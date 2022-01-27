@@ -3,6 +3,6 @@ extends layout
 block content 
     h1= title
     form(action=action)
-        label(for= name) 
-        input#name(value= category.name required)
+        label(for= "categoryName") Name
+        input#categoryName(name='categoryName' value= category.name required)
         button Submit
