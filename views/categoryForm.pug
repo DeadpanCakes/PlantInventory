@@ -2,7 +2,7 @@ extends layout
 
 block content 
     h1= title
-    form(action=action)
+    form(action=action method="POST")
         label(for= "categoryName") Name
         input#categoryName(name='categoryName' value= category.name required)
         button Submit
