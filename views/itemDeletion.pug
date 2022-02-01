@@ -1,0 +1,17 @@
+extends layout 
+
+block content
+    div.itemHeader
+        h1= item.name
+        p= `id: ${item._id}`
+    div.itemContents
+        img(src="")
+        p= item.desc
+        p= item.stock
+        p= item.price
+        p= item.categories.name
+    form(action=`/items/delete/${item.id}`, method="POST") 
+        h2= `Are You Sure You Want To Delete ${item.name}?`
+        button Yes
+        button
+            a(href= item.url) No
