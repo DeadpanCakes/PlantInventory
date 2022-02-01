@@ -1,0 +1,18 @@
+extends layout 
+
+block content 
+    h1= title
+    form#itemForm(action=action, method= "POST")
+        label(for= "itemName") Name
+        input#itemName(value= item.name required name="itemName")
+        label(for= "itemDesc") Desc
+        input#itemDesc(value= item.desc required name="itemDesc")
+        label(for="itemPrice") Price 
+        input#itemPrice(value= item.price required name="itemPrice")
+        label(for="itemStock") Stock 
+        input#itemStock(value= item.stock required name="itemStock")
+        select(required)
+            option(value="" default) Select Category
+            for category in categories
+                option(id=category._id value=category._id name="category")= category.name
+        button#submitBtn Submit
