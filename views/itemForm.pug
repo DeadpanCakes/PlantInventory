@@ -11,8 +11,8 @@ block content
         input#itemPrice(value= item.price required name="itemPrice")
         label(for="itemStock") Stock 
         input#itemStock(value= item.stock required name="itemStock")
-        select(required)
-            option(value="" default) Select Category
+        select(required name="category")
+            option(value="") Select Category
             for category in categories
-                option(id=category._id value=category._id name="category")= category.name
+                option(id=category._id value=category._id)= category.name
         button#submitBtn Submit
