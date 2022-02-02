@@ -1,4 +1,5 @@
 const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 const Category = require("../models/category");
 const Item = require("../models/item");
@@ -11,22 +12,38 @@ exports.getNew = (req, res, next) => {
     action: "/categories/new",
   });
 };
-exports.postNew = (req, res, next) => {
-  Category.findOne({ name: req.body.categoryName }).exec(
-    (err, existingCategory) => {
-      if (err) next(err);
-      if (existingCategory) {
-        res.redirect(existingCategory.url);
-      } else {
-        const newCategory = new Category({ name: req.body.categoryName });
-        newCategory.save((err) => {
+exports.postNew = [
+  body("categoryName", "Category Name Required").trim().isLength({ min: 1 }).escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const newCategory = new Category({ name: req.body.name });
+
+    if (!errors.isEmpty()) {
+      console.log(errors)
+      res.render("categoryForm", {
+        title: "New Category",
+        category: newCategory,
+        action: "/categories/new",
+        errors: errors.array(),
+      });
+    } else {
+      Category.findOne({ name: req.body.categoryName }).exec(
+        (err, existingCategory) => {
           if (err) next(err);
-          res.redirect(newCategory.url);
-        });
-      }
+          if (existingCategory) {
+            res.redirect(existingCategory.url);
+          } else {
+            newCategory.save((err) => {
+              if (err) next(err);
+              res.redirect(newCategory.url);
+            });
+          }
+        }
+      );
     }
-  );
-};
+  },
+];
 
 //Read
 exports.getList = (req, res, next) => {
@@ -89,7 +106,7 @@ exports.getDelete = (req, res, next) => {
         title: `Delete ${results.category.name}?`,
         category: results.category,
         items: results.items,
-        canBeDeleted: results.items.length <= 0
+        canBeDeleted: results.items.length <= 0,
       });
     }
   );
@@ -97,9 +114,9 @@ exports.getDelete = (req, res, next) => {
 };
 exports.postDelete = (req, res, next) => {
   Category.findByIdAndDelete(req.params.id).exec((err) => {
-    if(err) next(err);
-      res.redirect("/categories")
-  })
+    if (err) next(err);
+    res.redirect("/categories");
+  });
   // res.send(
   //   "Find by id and delet, redner page confirming delete, then redirect to category list"
   // );
