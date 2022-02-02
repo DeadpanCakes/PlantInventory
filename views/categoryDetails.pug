@@ -2,9 +2,14 @@ extends layout
 
 block content 
   h1= title
-  ul 
-    for item in items
-      li
-        a(href= item.url)= item.name
-    else 
-      a(href=`/categories/delete/${category._id}`) No Associated Items. Delete?
+  if items.length > 0
+    ul 
+      for item in items
+        li
+          a(href= item.url)= item.name
+  else 
+    p No Associated items
+      button
+        a(href="/items/new") Add items
+      button
+        a(href=`/categories/delete/${category._id}`) Delete category?
