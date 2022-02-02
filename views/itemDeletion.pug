@@ -13,5 +13,5 @@ block content
     form(action=`/items/delete/${item.id}`, method="POST") 
         h2= `Are You Sure You Want To Delete ${item.name}?`
         button Yes
-        button
+        button(type="button")
             a(href= item.url) No
