@@ -1,0 +1,17 @@
+extends layout 
+
+block content 
+  if canBeDeleted
+    h1= title
+    form(action=`/categories/delete/${category.id}`, method="POST") 
+      h2= `Are You Sure You Want To Delete ${category.name}?`
+      button Yes
+      button(type="button")
+          a(href= category.url) No
+  else
+    h1= title
+    p Can't be deleted until all associated items have been deleted.
+    ul 
+      for item in items
+        li
+          a(href= `/items/delete/${item._id}`)= item.name
