@@ -6,3 +6,7 @@ block content
         label(for= "categoryName") Name
         input#categoryName(name='categoryName' value= category.name required)
         button Submit
+    if errors
+      ul 
+        for error in errors
+            li!= error.msg
