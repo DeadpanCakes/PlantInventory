@@ -4,15 +4,19 @@ block content
     h1= title
     form#itemForm(action=action, method= "POST")
         label(for= "itemName") Name
-        input#itemName(value= item.name required name="itemName")
+        input#itemName(value= item.name name="itemName" required)
         label(for= "itemDesc") Desc
-        input#itemDesc(value= item.desc required name="itemDesc")
+        input#itemDesc(value= item.desc  name="itemDesc" required)
         label(for="itemPrice") Price 
-        input#itemPrice(value= item.price required name="itemPrice")
+        input#itemPrice(value= item.price  name="itemPrice" required)
         label(for="itemStock") Stock 
-        input#itemStock(value= item.stock required name="itemStock")
-        select(required name="category")
+        input#itemStock(value= item.stock name="itemStock" required)
+        select(name="category" required)
             option(value="") Select Category
             for category in categories
                 option(id=category._id value=category._id)= category.name
         button#submitBtn Submit
+    if errors
+      ul 
+        for error in errors
+            li!= error.msg
