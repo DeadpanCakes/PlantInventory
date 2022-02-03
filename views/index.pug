@@ -1,5 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1= Plant Inventory
+  nav 
+    a(href="/categories") Categories
+    a(href="/categories/new") Create Category
+    a(href="/items") Items
+    a(href="/items/new") Create Item
