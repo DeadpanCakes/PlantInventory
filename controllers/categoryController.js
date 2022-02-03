@@ -23,7 +23,6 @@ exports.postNew = [
     const newCategory = new Category({ name: req.body.name });
 
     if (!errors.isEmpty()) {
-      console.log(errors);
       res.render("categoryForm", {
         title: "New Category",
         category: newCategory,

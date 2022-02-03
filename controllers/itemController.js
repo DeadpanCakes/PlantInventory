@@ -42,7 +42,6 @@ exports.postNew = [
     .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body);
     async.parallel(
       {
         categories: (cb) => Category.find().exec(cb),
