@@ -20,7 +20,7 @@ exports.postNew = [
   (req, res, next) => {
     const errors = validationResult(req);
 
-    const newCategory = new Category({ name: req.body.name });
+    const newCategory = new Category({ name: req.body.categoryName });
 
     if (!errors.isEmpty()) {
       res.render("categoryForm", {
