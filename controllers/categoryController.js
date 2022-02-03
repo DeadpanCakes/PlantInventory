@@ -13,14 +13,17 @@ exports.getNew = (req, res, next) => {
   });
 };
 exports.postNew = [
-  body("categoryName", "Category Name Required").trim().isLength({ min: 1 }).escape(),
+  body("categoryName", "Category Name Required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   (req, res, next) => {
     const errors = validationResult(req);
 
     const newCategory = new Category({ name: req.body.name });
 
     if (!errors.isEmpty()) {
-      console.log(errors)
+      console.log(errors);
       res.render("categoryForm", {
         title: "New Category",
         category: newCategory,
@@ -81,15 +84,34 @@ exports.getUpdate = (req, res, next) => {
     res.render("categoryForm", { title: `Update ${category.name}`, category });
   });
 };
-exports.postUpdate = (req, res, next) => {
-  Category.findByIdAndUpdate(req.params.id, {
-    name: req.body.categoryName,
-  }).exec((err, category) => {
-    if (err) next(err);
-    res.redirect(category.url);
-  });
-  //res.send("Make new model, push to db, redirect to that page");
-};
+exports.postUpdate = [
+  body("categoryName", "Category Name Requireed")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      Category.findById(req.params.id).exec((err, category) => {
+        if (err) next(err);
+        res.render("categoryForm", {
+          title: `Update ${category.name}`,
+          category,
+          errors: errors.array(),
+          action: `/categories/update/${category._id}`,
+        });
+      });
+    } else {
+      Category.findByIdAndUpdate(req.params.id, {
+        name: req.body.categoryName,
+      }).exec((err, category) => {
+        if (err) next(err);
+        res.redirect(category.url);
+      });
+    }
+  },
+];
 
 //Delete
 exports.getDelete = (req, res, next) => {
