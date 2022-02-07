@@ -1,3 +1,4 @@
+const dotenv = require("dotenv").config()
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -17,8 +18,7 @@ app.use(helmet());
 
 //Set up mongoose connection
 var mongoose = require("mongoose");
-const dev_db_url =
-  "mongodb+srv://anthony:plants123@cluster0.oxaqw.mongodb.net/plantInventory?retryWrites=true&w=majority";
+const dev_db_url = process.env.dev_db_url;
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
