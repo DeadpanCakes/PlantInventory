@@ -15,13 +15,10 @@ exports.getNew = (req, res, next) => {
 exports.postNew = [
   body("categoryName", "Category Name Required")
     .trim()
-    .isLength({ min: 1 })
-    .escape(),
+    .isLength({ min: 1 }),
   (req, res, next) => {
     const errors = validationResult(req);
-
     const newCategory = new Category({ name: req.body.categoryName });
-
     if (!errors.isEmpty()) {
       res.render("categoryForm", {
         title: "New Category",
